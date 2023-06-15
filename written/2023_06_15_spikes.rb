@@ -20,10 +20,6 @@ Design a Sports Team (Author Unknown...thank you!)
 # + He is able to run
 # + He is able to whistle.
 
-
-
-*notes
-Try to parse line by line if possible
 =end
 
 module Runnable
@@ -139,6 +135,13 @@ module KidsWatchable
   end
 end
 
+class Preschool
+  def initialize
+    @staff = []
+    @children = []
+  end
+end
+
 class People
   include Eatable
 end
@@ -195,12 +198,74 @@ end
 #-------------------------------------------------------------------------------
 
 =begin
-
+honestly took probably between 23 - 25 mins
 Dental Office Alumni (by Rona Hsu)
 
-There's a dental office called Dental People Inc.  Within this office, there's 2 oral surgeons, 2 orthodontists, 1 general dentist.
-Both general dentists and oral surgeons can pull teeth. Orthodontists cannot pull teeth.  Orthodontists straighten teeth.
-All of these aforementioned specialties are dentists. All dentists graduated from dental school.  Oral surgeons place implants.
-General dentists fill teeth
+# + There's a dental office called Dental People Inc.
+
+# + Within this office, there's 2 oral surgeons, 2 orthodontists, 1 general dentist.
+
+# + Both general dentists and oral surgeons can pull teeth.
+
+# + Orthodontists straighten teeth.
+
+# + All of these aforementioned specialties are dentists.
+
+# + All dentists graduated from dental school.
+
+# + Oral surgeons place implants.
+
+# + General dentists fill teeth
 
 =end
+
+module Pullable
+  def pull_teeth
+    'Pulling out teeth!'
+  end
+end
+
+class DentalOffice
+  attr_accessor :staff
+
+  def initialize(name)
+    @name = name
+    @staff = []
+  end
+end
+
+class Dentists
+  def initialize
+    @graduated_dental_school = true
+  end
+end
+
+class OralSurgeon < Dentists
+  include Pullable
+
+  def place_implants
+    'Placing implants!'
+  end
+end
+
+class Orthodontist < Dentists
+  def straighten_teeth
+    'Straightening teeth!'
+  end
+end
+
+class GeneralDentist < Dentists
+  include Pullable
+
+  def fill_teeth
+    'Filling teeth!'
+  end
+end
+
+dental_people_inc = DentalOffice.new('Dental People Inc.')
+dental_people_inc.staff << OralSurgeon.new
+dental_people_inc.staff << OralSurgeon.new
+dental_people_inc.staff << Orthodontist.new
+dental_people_inc.staff << Orthodontist.new
+dental_people_inc.staff << GeneralDentist.new
+p dental_people_inc.staff
